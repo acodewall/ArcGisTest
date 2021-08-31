@@ -1,0 +1,128 @@
+<html>
+	<html>
+		<head>
+			<meta charset="utf-8" />
+			<meta
+				name="viewport"
+				content="initial-scale=1, maximum-scale=1, user-scalable=no"
+			/>
+			<title>ArcGIS API for JavaScript Test</title>
+			<style>
+				html,
+				body,
+				#viewDiv {
+					padding: 0;
+					margin: 0;
+					height: 100%;
+					width: 100%;
+				}
+			</style>
+			<link
+				rel="stylesheet"
+				href="https://js.arcgis.com/4.20/esri/themes/light/main.css"
+			/>
+			<script src="https://js.arcgis.com/4.20/"></script>
+			<script>
+				require([
+					'esri/config',
+					'esri/Map',
+					'esri/views/MapView',
+
+					'esri/Graphic',
+					'esri/layers/GraphicsLayer',
+				], function (esriConfig, Map, MapView, Graphic, GraphicsLayer) {
+					esriConfig.apiKey =
+						'AAPKe344596cfd4e43db89e064d5280e075fNHXZvIIFbYk6wl-cVQVjebK5Ri7gNlw4DQqnEmmJqzyNJCAJ9Bbj0aT8-9qFhQ57'
+
+					const map = new Map({
+						basemap: 'arcgis-topographic', //Basemap layer service
+					})
+
+					const view = new MapView({
+						map: map,
+						center: [37.61556, 55.75222], //Longitude, latitude
+						zoom: 6,
+						container: 'viewDiv',
+					})
+
+					const graphicsLayer = new GraphicsLayer()
+					map.add(graphicsLayer)
+
+					const simpleMarkerSymbol = {
+						type: 'simple-marker',
+						color: [226, 119, 40], // Orange
+					}
+
+					const popupTemplate = {
+						title: '{Name}',
+						content: '{Description}',
+					}
+
+					//Moscow
+					const pointMoscow = {
+						type: 'point',
+						longitude: 37.61556,
+						latitude: 55.75222,
+					}
+
+					const attributesMoscow = {
+						Name: 'Moscow',
+						Description: 'https://en.wikipedia.org/wiki/Moscow',
+					}
+
+					const pointGraphicMoscow = new Graphic({
+						geometry: pointMoscow,
+						symbol: simpleMarkerSymbol,
+						attributes: attributesMoscow,
+						popupTemplate: popupTemplate,
+					})
+
+					//Yaroslavl
+					const pointYaroslavl = {
+						type: 'point',
+						longitude: 39.87368,
+						latitude: 57.62987,
+					}
+
+					const attributesYaroslavl = {
+						Name: 'Yaroslavl',
+						Description: 'https://en.wikipedia.org/wiki/Yaroslavl',
+					}
+
+					const pointGraphicYaroslavl = new Graphic({
+						geometry: pointYaroslavl,
+						symbol: simpleMarkerSymbol,
+						attributes: attributesYaroslavl,
+						popupTemplate: popupTemplate,
+					})
+
+					//Tver
+					const pointTver = {
+						type: 'point',
+						longitude: 35.90057,
+						latitude: 56.85836,
+					}
+
+					const attributesTver = {
+						Name: 'Tver',
+						Description: 'https://en.wikipedia.org/wiki/Tver',
+					}
+
+					const pointGraphicTver = new Graphic({
+						geometry: pointTver,
+						symbol: simpleMarkerSymbol,
+						attributes: attributesTver,
+						popupTemplate: popupTemplate,
+					})
+
+					graphicsLayer.add(pointGraphicMoscow)
+					graphicsLayer.add(pointGraphicYaroslavl)
+					graphicsLayer.add(pointGraphicTver)
+				})
+			</script>
+		</head>
+		<body>
+			<div id="viewDiv"></div>
+		</body>
+	</html>
+</html>
